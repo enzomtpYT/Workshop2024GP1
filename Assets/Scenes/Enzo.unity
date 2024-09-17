@@ -8730,6 +8730,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1270491636}
+  - component: {fileID: 1270491637}
   m_Layer: 0
   m_Name: Camera focus
   m_TagString: Untagged
@@ -8752,6 +8753,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1270491637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1270491635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 343975dea7a5a0b4e80293acd8578e7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  character: {fileID: 1270491635}
 --- !u!4 &1280690389 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4013222442301090, guid: da6bcf73bb67c904bb40f0c943fc2689, type: 3}
