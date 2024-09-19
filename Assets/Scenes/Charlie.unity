@@ -17966,7 +17966,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotType: 0
-  nextSlots: []
+  nextSlots:
+  - {fileID: 702488838}
 --- !u!1001 &1952721888
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19608,7 +19609,6 @@ SceneRoots:
   - {fileID: 667508144}
   - {fileID: 760751934}
   - {fileID: 1842403142}
-  - {fileID: 1944826883}
   - {fileID: 726050528}
   - {fileID: 1325610918}
   - {fileID: 909879181}
