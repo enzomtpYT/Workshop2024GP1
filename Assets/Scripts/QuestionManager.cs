@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public struct Question {
     private static int idCount = 0;
@@ -25,6 +27,16 @@ public enum QuestionType {
 public class QuestionManager : MonoBehaviour
 {
     public bool questionAnswered = true;
+    public bool answeredCorrectly = true;
+    public TextMeshProUGUI questionText;
+    public ImageManager imageManager;
+    public TextMeshProUGUI answer1;
+    public TextMeshProUGUI answer2;
+    public TextMeshProUGUI answer3;
+    public TextMeshProUGUI answer4;
+    public Image resultImage;
+    public TextMeshProUGUI resultText;
+    private Question currentQuestion;
 
     private int[] lastQuestionId = new int[4] {
         -1, // QuestionType.Dev
@@ -346,6 +358,39 @@ public class QuestionManager : MonoBehaviour
     }
 
     public void StartQuestion(QuestionType source) {
+        this.questionAnswered = false;
+        currentQuestion = GetRandomQuestion(source);
+        imageManager.ChangeImage((CardType)source);
+        questionText.text = currentQuestion.question;
+        answer1.text = currentQuestion.answers[0];
+        answer2.text = currentQuestion.answers[1];
+        answer3.text = currentQuestion.answers[2];
+        answer4.text = currentQuestion.answers[3];
 
+        // set all answers and card text and image
+        this.gameObject.SetActive(true);
+    }
+
+    public void TryAnswer(int answer) {
+        resultImage.gameObject.SetActive(true);
+        resultText.gameObject.SetActive(true);
+        if (answer == currentQuestion.goodAnswer) {
+            resultText.text = "Correct!";
+            resultImage.color = Color.green;
+            this.answeredCorrectly = true;
+        } else {
+            resultText.text = "Wrong!";
+            resultImage.color = Color.red;
+            this.answeredCorrectly = false;
+        }
+        StartCoroutine(AnswerCoroutine());
+    }
+
+    public IEnumerator AnswerCoroutine() {
+        yield return new WaitForSeconds(1.5f);
+        resultImage.gameObject.SetActive(false);
+        resultText.gameObject.SetActive(false);
+        this.gameObject.SetActive(false);
+        this.questionAnswered = true;
     }
 }

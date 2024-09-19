@@ -25,5 +25,6 @@ public class ChoosePathUI : MonoBehaviour
     public void Choose(int choice) {
         this.choice = this.slots[choice];
         playerChose = true;
+        this.gameObject.SetActive(false);
     }
 }

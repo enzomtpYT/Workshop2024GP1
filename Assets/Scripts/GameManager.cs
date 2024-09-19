@@ -6,8 +6,11 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public PawnMovement pawn;
+    public Slot startSlot;
+    public Slot endSlot;
     public Slot currentSlot;
     public TextMeshProUGUI dieText;
+    public GameObject dieUI;
     public GameObject startRoundButton;
     public ChoosePathUI choosePathUI;
     public QuestionManager questionManager;
@@ -16,13 +19,31 @@ public class GameManager : MonoBehaviour
 
     IEnumerator RoundCoroutine()
     {
+        if (currentSlot != startSlot) {
+            if (currentSlot.slotType == CardType.Bonus || currentSlot.slotType == CardType.Malus) {
+                statusManager.GetStatus();
+            } else {
+                questionManager.StartQuestion((QuestionType)currentSlot.slotType);
+            }
+            while (!questionManager.questionAnswered) yield return null;
+            if (!questionManager.answeredCorrectly) {
+                startRoundButton.SetActive(true);
+                yield break;
+            }
+        }
+
         float startTime = Time.time;
+        startRoundButton.SetActive(false);
+        dieUI.SetActive(true);
 
         int pickedNumber = 0;
         while (Time.time < startTime + randAnimDuration)
         {
+            pickedNumber = Random.Range(1, 7);
+            dieText.text = pickedNumber.ToString();
             yield return null;
         }
+        dieUI.SetActive(false);
 
         for (int i = 0; i < pickedNumber; i++) {
             while (!pawn.finished) yield return null;
@@ -35,22 +56,21 @@ public class GameManager : MonoBehaviour
                 choosePathUI.Prompt(slots);
                 while (!choosePathUI.playerChose) yield return null;
                 nextSlot = choosePathUI.choice;
-            } else
+            } else {
+                Debug.Log(currentSlot.nextSlots.Length);
                 nextSlot = currentSlot.nextSlots[0].GetComponent<Slot>();
+            }
             pawn.MoveTo(nextSlot.transform.position);
             currentSlot = nextSlot;
         }
 
-        if (currentSlot.slotType == CardType.Bonus || currentSlot.slotType == CardType.Malus) {
-            statusManager.GetStatus();
-        } else {
-            questionManager.StartQuestion((QuestionType)(int)currentSlot.slotType);
-        }
-        while (!questionManager.questionAnswered) yield return null;
+        if (currentSlot == endSlot)
+            Application.Quit(); // switch to end scene
 
+        startRoundButton.SetActive(true);
     }
 
-    void StartRound() {
+    public void StartRound() {
         StartCoroutine(RoundCoroutine());
     }
 }
