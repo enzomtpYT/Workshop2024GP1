@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
 
     IEnumerator RoundCoroutine()
     {
+        startRoundButton.SetActive(false);
         if (currentSlot != startSlot) {
             if (currentSlot.slotType == CardType.Bonus || currentSlot.slotType == CardType.Malus) {
                 statusManager.GetStatus();
@@ -33,7 +34,6 @@ public class GameManager : MonoBehaviour
         }
 
         float startTime = Time.time;
-        startRoundButton.SetActive(false);
         dieUI.SetActive(true);
 
         int pickedNumber = 0;
