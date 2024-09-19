@@ -12,7 +12,7 @@ namespace ERP
     [Serializable]
     public class ERPSettings
     {
-        private static string path = Directory.GetCurrentDirectory() + "/.erp";
+        private static string path = Path.Combine(Directory.GetCurrentDirectory(), ".erp");
         public bool showSceneName;
         public bool showProjectName;
         public bool resetOnSceneChange;
