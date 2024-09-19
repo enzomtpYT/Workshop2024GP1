@@ -43,6 +43,7 @@ public class GameManager : MonoBehaviour
             dieText.text = pickedNumber.ToString();
             yield return null;
         }
+        yield return new WaitForSeconds(1.5f);
         dieUI.SetActive(false);
 
         for (int i = 0; i < pickedNumber; i++) {
