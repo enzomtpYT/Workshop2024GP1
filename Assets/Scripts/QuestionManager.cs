@@ -22,29 +22,16 @@ public enum QuestionType {
     Dev, Network, Marketing, Trivia
 }
 
-public class QuestionsManager : MonoBehaviour
+public class QuestionManager : MonoBehaviour
 {
+    public bool questionAnswered = true;
+
     private int[] lastQuestionId = new int[4] {
         -1, // QuestionType.Dev
         -1, // QuestionType.Network
         -1, // QuestionType.Marketing
         -1, // QuestionType.Trivia
     };
-
-    public Question GetRandomQuestion(QuestionType source) {
-        List<List<Question>> lists = new List<List<Question>> {
-            devQuestions,
-            networkQuestions,
-            marketingQuestions,
-            triviaQuestions
-        };
-        int sourceIdx = (int)source;
-        int randIdx = Random.Range(0, lists[sourceIdx].Count);
-        while (randIdx == lastQuestionId[sourceIdx])
-            randIdx = Random.Range(0, lists[sourceIdx].Count);
-        lastQuestionId[sourceIdx] = randIdx;
-        return lists[sourceIdx][randIdx];
-    }
 
     private List<Question> devQuestions = new List<Question> {
         new("Quelle est la signification de HTML ?", new string[4] {
@@ -342,4 +329,23 @@ public class QuestionsManager : MonoBehaviour
             "Arthur / Rick / Glenn",
         }, 2),
     };
+
+    public Question GetRandomQuestion(QuestionType source) {
+        List<List<Question>> lists = new List<List<Question>> {
+            devQuestions,
+            networkQuestions,
+            marketingQuestions,
+            triviaQuestions
+        };
+        int sourceIdx = (int)source;
+        int randIdx = Random.Range(0, lists[sourceIdx].Count);
+        while (randIdx == lastQuestionId[sourceIdx])
+            randIdx = Random.Range(0, lists[sourceIdx].Count);
+        lastQuestionId[sourceIdx] = randIdx;
+        return lists[sourceIdx][randIdx];
+    }
+
+    public void StartQuestion(QuestionType source) {
+
+    }
 }
