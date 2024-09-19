@@ -44,6 +44,9 @@ public class GameManager : MonoBehaviour
             dieText.text = pickedNumber.ToString();
             yield return null;
         }
+        pickedNumber = 4;
+        dieText.text = pickedNumber.ToString();
+        yield return null;
         yield return new WaitForSeconds(.5f);
         pickedNumber = statusManager.ApplyStatus(pickedNumber);
         dieText.text = pickedNumber.ToString();
@@ -62,7 +65,6 @@ public class GameManager : MonoBehaviour
                 while (!choosePathUI.playerChose) yield return null;
                 nextSlot = choosePathUI.choice;
             } else {
-                Debug.Log(currentSlot.nextSlots.Length);
                 nextSlot = currentSlot.nextSlots[0].GetComponent<Slot>();
             }
             pawn.MoveTo(nextSlot.transform.position);

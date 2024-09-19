@@ -14,12 +14,12 @@ public class StatusManager : MonoBehaviour
 
     List<(string, Func<int, int>)> bonuses = new() {
         ("Babyfoot:\n\nAjoute 1 à ton prochain lancer !", new((int a) => a+1)),
-        ("Pause café:\n\nDouble ton prochain lancer !", new((int a) => a*2)),
+        // ("Pause café:\n\nDouble ton prochain lancer !", new((int a) => a*2)),
     };
 
     List<(string, Func<int, int>)> maluses = new() {
         ("Retard:\n\nEnlève 1 à ton prochain lancer !", new((int a) => a-1)),
-        ("Accident de tram:\n\nDouble ton prochain lancer !", new((int a) => a/2)),
+        // ("Accident de tram:\n\nDouble ton prochain lancer !", new((int a) => a/2)),
     };
 
     public void AddStatus(CardType type) {
@@ -43,6 +43,7 @@ public class StatusManager : MonoBehaviour
         foreach (var status in currentStatuses) {
             input = status(input);
         }
+        currentStatuses.Clear();
         return input;
     }
 }
