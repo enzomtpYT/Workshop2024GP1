@@ -67,7 +67,7 @@ public class GameManager : MonoBehaviour
             } else {
                 nextSlot = currentSlot.nextSlots[0].GetComponent<Slot>();
             }
-            pawn.MoveTo(nextSlot.transform.position);
+            pawn.MoveTo(nextSlot.transform.position + new Vector3(0f, .25f, 0f));
             currentSlot = nextSlot;
         }
 
