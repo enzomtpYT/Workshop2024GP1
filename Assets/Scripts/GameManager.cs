@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviour
             dieText.text = pickedNumber.ToString();
             yield return null;
         }
-        pickedNumber = 4;
+        pickedNumber = 6;
         dieText.text = pickedNumber.ToString();
         yield return null;
         yield return new WaitForSeconds(.5f);
