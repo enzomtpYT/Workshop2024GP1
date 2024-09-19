@@ -375,11 +375,11 @@ public class QuestionManager : MonoBehaviour
         resultImage.gameObject.SetActive(true);
         resultText.gameObject.SetActive(true);
         if (answer == currentQuestion.goodAnswer) {
-            resultText.text = "Correct!";
+            resultText.text = "Correct !";
             resultImage.color = Color.green;
             this.answeredCorrectly = true;
         } else {
-            resultText.text = "Wrong!";
+            resultText.text = "Faux !";
             resultImage.color = Color.red;
             this.answeredCorrectly = false;
         }

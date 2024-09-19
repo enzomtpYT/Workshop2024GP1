@@ -22,11 +22,12 @@ public class GameManager : MonoBehaviour
         startRoundButton.SetActive(false);
         if (currentSlot != startSlot) {
             if (currentSlot.slotType == CardType.Bonus || currentSlot.slotType == CardType.Malus) {
-                statusManager.GetStatus();
+                statusManager.AddStatus(currentSlot.slotType);
+                while (!statusManager.validatedStatus) yield return null;
             } else {
                 questionManager.StartQuestion((QuestionType)currentSlot.slotType);
+                while (!questionManager.questionAnswered) yield return null;
             }
-            while (!questionManager.questionAnswered) yield return null;
             if (!questionManager.answeredCorrectly) {
                 startRoundButton.SetActive(true);
                 yield break;
@@ -43,7 +44,10 @@ public class GameManager : MonoBehaviour
             dieText.text = pickedNumber.ToString();
             yield return null;
         }
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(.5f);
+        pickedNumber = statusManager.ApplyStatus(pickedNumber);
+        dieText.text = pickedNumber.ToString();
+        yield return new WaitForSeconds(1f);
         dieUI.SetActive(false);
 
         for (int i = 0; i < pickedNumber; i++) {
