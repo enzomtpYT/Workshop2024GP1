@@ -16,6 +16,7 @@ public class PawnMovement : MonoBehaviour
 
     IEnumerator MovementCoroutine(Vector3 position)
     {
+        finished = false;
         startPos = this.transform.position;
         float startTime = Time.time;
 
